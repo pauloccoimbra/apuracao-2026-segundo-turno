@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "Se você usar este site, cite-o como abaixo."
+title: "Apuração 2026 · 2º turno: painel e análises"
+type: software
+authors:
+  - family-names: Coimbra
+    given-names: "Paulo C."
+    affiliation: "Universidade Federal de Juiz de Fora (UFJF)"
+    # orcid: "https://orcid.org/0000-0000-0000-0000"
+repository-code: "https://github.com/pauloccoimbra/apuracao-2026-segundo-turno"
+url: "https://pauloccoimbra.github.io/apuracao-2026-segundo-turno/"
+license: MIT
+version: "0.1.0"
+date-released: "2026-10-11"
+abstract: "Painel e análises do segundo turno das eleições gerais de 2026 (25 de outubro). Em construção. Projeto independente, sem vínculo com o TSE."
+keywords: [eleições 2026, TSE, apuração, segundo turno, Brasil]
+# doi: "10.5281/zenodo.0000000"

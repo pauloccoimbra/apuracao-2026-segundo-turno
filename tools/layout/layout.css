@@ -1,0 +1,43 @@
+/* Layout comum a todas as páginas. Gerado por tools/aplicar_layout.py a partir deste arquivo. */
+:root{--navh:42px}
+@view-transition{navigation:auto}
+::view-transition-old(root),::view-transition-new(root){animation-duration:.18s}
+#sitenav{view-transition-name:sitenav}
+@keyframes pgin{from{opacity:0}to{opacity:1}}
+@supports not (view-transition-name:none){main{animation:pgin .18s ease-out}}
+@media (prefers-reduced-motion:reduce){
+ @view-transition{navigation:none}
+ ::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}
+ main{animation:none!important}
+}
+.skip{position:absolute;left:-999px;top:0;background:var(--accent,#0b5cad);color:#fff;padding:8px 12px;z-index:100;border-radius:0 0 6px 0}
+.skip:focus{left:0}
+main:focus{outline:none}
+header.top{top:var(--navh)!important}
+#sitenav{position:sticky;top:0;z-index:40;height:var(--navh);background:var(--surface,#fff);border-bottom:1px solid var(--line,#d9dde4);font:500 13px/1.2 var(--sans,system-ui,sans-serif)}
+#sitenav .in{max-width:1240px;height:100%;margin:0 auto;padding:0 12px;display:flex;align-items:center;gap:2px;overflow-x:auto;overflow-y:hidden;scrollbar-width:none}
+#sitenav .in::-webkit-scrollbar{display:none}
+#sitenav a{padding:0 10px;height:100%;display:inline-flex;align-items:center;color:var(--fg2,#4a5262);text-decoration:none;white-space:nowrap;border-bottom:2px solid transparent;box-sizing:border-box}
+#sitenav a:hover{color:var(--fg,#161a22)}
+#sitenav a[aria-current=page]{color:var(--fg,#161a22);border-bottom-color:var(--accent,#0b5cad);font-weight:600}
+#sitenav a:focus-visible{outline:2px solid var(--accent,#0b5cad);outline-offset:-2px}
+#sitenav .mk{font-weight:700;color:var(--fg,#161a22);padding-right:14px}
+#sitenav .g{display:flex;align-items:center;height:100%;border-left:1px solid var(--line,#d9dde4);margin-left:6px;padding-left:6px}
+#sitenav .gl{font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted,#7b8494);padding:0 6px;white-space:nowrap;display:none}
+@media(min-width:1800px){#sitenav .gl{display:inline}}
+.serve{padding-top:10px;padding-bottom:0}.serve p{margin:0;color:var(--fg2,#4a5262);font-size:13.5px;border-left:3px solid var(--accent,#0b5cad);padding:2px 0 2px 10px}
+.veja{padding-top:10px;color:var(--fg2,#4a5262);font-size:13.5px}.veja a{color:var(--accent,#0b5cad);text-decoration:none;margin-right:12px}.veja a:hover{text-decoration:underline}
+.pager{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding-top:14px;padding-bottom:6px;font-size:13.5px}
+.pager a{color:var(--accent,#0b5cad);text-decoration:none;padding:6px 10px;border:1px solid var(--line,#d9dde4);border-radius:8px;background:var(--surface,#fff)}.pager a:hover{border-color:var(--accent,#0b5cad)}
+.pager .vz{border:none;background:none}
+.site-rodape{padding-top:10px;padding-bottom:26px;color:var(--muted,#6b7385);font-size:12.5px;border-top:1px solid var(--line,#d9dde4);margin-top:14px}
+.site-rodape p{margin:0 0 4px}.site-rodape a{color:inherit}
+.fonte-pg{margin:10px 0 0;color:var(--muted,#6b7385);font-size:12.5px}
+
+/* Tipografia única em todas as abas */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{font-size:14px;line-height:1.45}
+body p,body li,body .lead{font-size:13.5px}
+body label{font-size:13px!important}
+
+#sitenav .mk{padding-right:8px}#sitenav a.seg{flex:none;margin-right:6px;font-weight:600;border:1px solid var(--accent);border-radius:999px;padding:0 10px;height:26px;color:var(--accent)}

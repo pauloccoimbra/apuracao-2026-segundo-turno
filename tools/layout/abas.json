@@ -1,0 +1,124 @@
+{
+ "marca": "Apuração 2026 · 2º turno",
+ "grupos": [
+  {
+   "id": "inicio",
+   "nome": "Início",
+   "pergunta": "Por onde começo?"
+  },
+  {
+   "id": "acompanhar",
+   "nome": "Acompanhar a apuração",
+   "pergunta": "Como está (ou ficou) a contagem, agora e no território?"
+  },
+  {
+   "id": "reconstituir",
+   "nome": "Reconstituir a noite",
+   "pergunta": "Como a contagem avançou?"
+  },
+  {
+   "id": "entender",
+   "nome": "Entender os dois turnos",
+   "pergunta": "O que mudou entre os turnos, e onde?"
+  },
+  {
+   "id": "comparar",
+   "nome": "Comparar com o 1º turno",
+   "pergunta": "O resultado cabe nas hipóteses feitas com o 1º turno?"
+  },
+  {
+   "id": "governos",
+   "nome": "Governos estaduais",
+   "pergunta": "Como estão os seis segundos turnos estaduais?"
+  }
+ ],
+ "abas": [
+  {
+   "arquivo": "index.html",
+   "nome": "Resumo",
+   "grupo": "inicio",
+   "serve": "",
+   "veja": []
+  },
+  {
+   "arquivo": "painel.html",
+   "nome": "Painel",
+   "grupo": "acompanhar",
+   "serve": "Acompanhar a apuração em tempo real: líder, votação, resultado nacional, projeção, estados e os seis governos estaduais.",
+   "veja": [
+    "mapa.html",
+    "evolucao.html"
+   ]
+  },
+  {
+   "arquivo": "mapa.html",
+   "nome": "Mapa",
+   "grupo": "acompanhar",
+   "serve": "Ver o resultado no território: Brasil, regiões, estados, municípios e zonas eleitorais.",
+   "veja": [
+    "painel.html",
+    "perfil.html"
+   ]
+  },
+  {
+   "arquivo": "evolucao.html",
+   "nome": "Evolução",
+   "grupo": "reconstituir",
+   "serve": "Reconstituir como a contagem do 2º turno avançou ao longo da noite, com as leituras registradas no seu navegador.",
+   "veja": [
+    "atemporal.html",
+    "painel.html"
+   ]
+  },
+  {
+   "arquivo": "atemporal.html",
+   "nome": "Atemporal",
+   "grupo": "reconstituir",
+   "serve": "Separar o efeito da ordem de chegada dos estados do efeito do voto: estados somados em sequência, cada um de forma homogênea.",
+   "veja": [
+    "evolucao.html",
+    "cenarios.html"
+   ]
+  },
+  {
+   "arquivo": "perfil.html",
+   "nome": "Perfil do voto",
+   "grupo": "entender",
+   "serve": "Descrever polarização e geografia do voto presidencial no 1º turno e a mudança do 1º para o 2º turno por UF.",
+   "veja": [
+    "participacao.html",
+    "mapa.html"
+   ]
+  },
+  {
+   "arquivo": "participacao.html",
+   "nome": "Participação",
+   "grupo": "entender",
+   "serve": "Comparar comparecimento, abstenção, brancos e nulos entre os turnos e ver o voto cruzado do 1º turno.",
+   "veja": [
+    "perfil.html",
+    "governadores.html"
+   ]
+  },
+  {
+   "arquivo": "cenarios.html",
+   "nome": "Resultado × cenários",
+   "grupo": "comparar",
+   "serve": "Situar o resultado na régua aritmética montada com o 1º turno: ganho dos finalistas, parcela de Lula e ponto de empate.",
+   "veja": [
+    "painel.html",
+    "atemporal.html"
+   ]
+  },
+  {
+   "arquivo": "governadores.html",
+   "nome": "Governadores",
+   "grupo": "governos",
+   "serve": "Acompanhar os seis segundos turnos estaduais (RN, AM, AC, ES, TO e DF) e ver os 21 governos definidos no 1º turno.",
+   "veja": [
+    "painel.html",
+    "participacao.html"
+   ]
+  }
+ ]
+}

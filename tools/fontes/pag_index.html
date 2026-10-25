@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Resumo</title><meta name="description" content="Apuração 2026 · 2º turno: painel independente e análises do segundo turno das eleições gerais de 2026 (25 de outubro), a partir dos arquivos públicos do TSE.">
+<style>/*@CSS*/</style></head><body>
+<main class="wrap" id="main">
+<section class="hero" id="topo">
+<h1 class="page-h">Apuração 2026 · 2º turno</h1>
+<p class="lead">Painel e análises do segundo turno das eleições gerais de 2026 (25 de outubro), feitos só com os arquivos públicos de divulgação de resultados do TSE: apuração em tempo real de presidente e dos seis governos estaduais com disputa, mapa do Brasil, ritmo da contagem, cenário atemporal, perfil do voto, participação e a régua aritmética montada com o 1º turno.</p>
+<div class="callout" style="margin:10px 0"><b>Aviso sonoro de interrupção.</b> Na aba Painel (e nas demais abas ao vivo), clique em <b>Ligar aviso sonoro</b> e deixe a página aberta: se nenhuma seção nova for totalizada no país por 10 minutos, toca um alarme e o título da aba muda; quando volta, tocam 3 tons. Instruções completas no item “Como usar o aviso sonoro de interrupção”, logo abaixo do status.</div>
+<p class="aviso-curto">Projeto independente, sem vínculo com o TSE, partidos ou candidaturas. Cenários e projeções são hipóteses de trabalho, não previsão nem pesquisa eleitoral. O resultado oficial é o do TSE.</p>
+<p><a class="btn-pri" href="painel.html">Painel ao vivo →</a> <a class="btn-sec" href="https://pauloccoimbra.github.io/apuracao-2026-primeiro-turno/" rel="noopener" style="margin-left:8px">1º turno ↗</a></p>
+</section>
+<div class="callout"><b>Versão preliminar.</b> Painel, Mapa, Evolução, Atemporal, Resultado × cenários, Perfil do voto, Participação e Governadores já funcionam. Ainda faltam: transferência de votos por UF (estimativa ecológica) e os cenários A, B e C com a régua histórica. O mapa de municípios e zonas depende de arquivos do 2º turno que só o TSE publica no dia. A leitura ao vivo depende dos códigos de eleição do 2º turno no TSE (veja “Códigos de eleição” em qualquer página de apuração).</div>
+<nav class="toc card" id="toc" aria-label="Nesta página"><details><summary><b>Nesta página</b></summary><ol><li><a href="#comece">Comece por aqui</a></li><li><a href="#numeros">Números do 1º turno</a></li><li><a href="#proximos">O que vem pela frente</a></li><li><a href="#qualidade">Qualidade dos dados</a></li><li><a href="#glossario">Glossário</a></li><li><a href="#dados">Dados, licenças, limites e como citar</a></li><li><a href="#privacidade">Privacidade</a></li></ol></details></nav>
+
+<section class="card" id="comece"><h2>Comece por aqui <span class="sub">cada aba responde a uma pergunta</span></h2><div class="cards-g" id="grupos"></div></section>
+<section class="card" id="numeros"><h2>Números do 1º turno <span class="sub">recalculados dos dados embutidos (TSE, resultado final de 04/10/2026)</span></h2><div class="grid kpis" id="kp"></div><p class="note" id="knote"></p></section>
+<section class="card" id="proximos"><h2>O que vem pela frente</h2><div class="tw"><table id="cal"></table></div></section>
+<section class="card" id="qualidade"><details><summary><h2>Qualidade dos dados <span class="sub">verificações feitas ao abrir a página</span></h2></summary><div class="tw"><table id="chk"></table></div></details></section>
+<section class="card" id="glossario"><details><summary><h2>Glossário</h2></summary><dl class="gl3" id="glo"></dl></details></section>
+<section class="card" id="dados"><details><summary><h2>Dados, licenças, limites e como citar</h2></summary><div class="prose">
+<p><b>Dados.</b> Arquivos JSON públicos de divulgação de resultados do TSE (resultados.tse.jus.br), lidos pelo navegador de quem abre a página; o 1º turno está embutido nas páginas (resultado final de 04/10/2026). O TSE não declara, nesses arquivos, uma licença específica de reutilização. Os cálculos são do autor.</p>
+<p><b>Licenças.</b> O código está sob licença MIT (arquivo LICENSE). Os dados seguem os termos do TSE. As fontes IBM Plex têm licença SIL OFL 1.1.</p>
+<p><b>Limites.</b> (1) Projeção e cenários são conta aritmética sobre agregados, não previsão. (2) Agregados não identificam o comportamento de cada eleitor; ganho líquido não é ganho bruto. (3) Votos <i>sub judice</i> ficam fora dos válidos e são mostrados à parte quando o TSE os informa; decisões da Justiça Eleitoral e recontagens podem alterar números, e o site passa a refletir o que o TSE republicar, sem ajustes próprios. (4) A leitura ao vivo não foi testada contra os arquivos reais do 2º turno antes de 25/10; a conferência é a comparação com o TSE. (5) A margem é sempre Flávio Bolsonaro − Lula (positivo favorece Flávio); em textos sobre um candidato, o sinal acompanha esse candidato.</p>
+<p><b>Como citar.</b> Coimbra, P. C. <i>Apuração 2026 · 2º turno: painel e análises</i>. Site estático, outubro de 2026. https://pauloccoimbra.github.io/apuracao-2026-segundo-turno/ (acesso em: data). Enquanto não houver DOI, cite assim; o arquivo CITATION.cff alimenta o botão “Cite this repository” do GitHub.</p>
+<p><b>Código.</b> Repositório <code>apuracao-2026-segundo-turno</code> (GitHub: pauloccoimbra).</p></div></details></section>
+<section class="card" id="privacidade"><details><summary><h2>Privacidade</h2></summary><div class="prose">
+<p>Contagem anônima de visitas com GoatCounter, sem cookies. Nenhum dado pessoal é coletado. O navegador guarda localmente, e só nele: os códigos de eleição que você informar (<code>ap26s.fed</code>, <code>ap26s.est</code>, <code>ap26s.root</code>), o histórico de ritmo da apuração (<code>ap26s.hist</code>) e preferências de tela (<code>ap26s.ptab</code>, <code>ap26s.preg</code>, <code>ap26s.pinc</code>, <code>ap26s.etab</code>, <code>ap26s.cen</code>, <code>ap26s.ar</code>, <code>ap26s.as</code>). As páginas de apuração fazem pedidos diretos a resultados.tse.jus.br a partir do seu navegador.</p></div></details></section>
+</main>
+<script>/*@DATA*/</script>
+<script>/*@LIB*/</script>
+<script>
+'use strict';
+const {$,esc,fi,fd,fp,fs,fsi,T1,D26,U1,U1vv,ALLU,GOVUF}=AP;
+const GR=[
+ ['Acompanhar a apuração','Como está a contagem, agora e no território?',[['painel.html','Painel','Líder, votação, resultado nacional, projeção com prumo, estados, evolução e seis governos',`${fp(T1.abst/T1.el*100)} de abstenção no 1º turno`],['mapa.html','Mapa','Brasil, regiões, estados, municípios e zonas, como no 1º turno','']]],
+ ['Reconstituir a noite','Como a contagem avança?',[['evolucao.html','Evolução','Seções, percentuais, velocidade por estado e trocas de ritmo ao longo da noite',''],['atemporal.html','Atemporal','Estados somados em sequência, na ordem escolhida: separa o efeito da ordem do efeito do voto','']]],
+ ['Entender os dois turnos','O que mudou entre os turnos, e onde?',[['perfil.html','Perfil do voto','Polarização e geografia do 1º turno; mudança do 1º para o 2º turno por UF',''],['participacao.html','Participação','Comparecimento, abstenção, brancos e nulos nos dois turnos','']]],
+ ['Comparar com o 1º turno','O resultado cabe na régua do 1º turno?',[['cenarios.html','Resultado × cenários','Ganho dos finalistas (r), parcela de Lula (s), ponto de empate, matriz e r e s por UF',`s*(r) = 0,5 + ${fd(T1.M/(2*T1.E),6)}/r`],[null,'Transferência de votos por UF','Estimativa ecológica, 1º → 2º turno (em construção)','']]],
+ ['Governos estaduais','Como estão os seis segundos turnos?',[['governadores.html','Governadores','RN, AM, AC, ES, TO e DF ao vivo, simulador, pontos de empate e os 21 governos já definidos','']]]
+];
+$('#grupos').innerHTML=GR.map(g=>`<div class="it"><b>${esc(g[0])}</b><span class="note">${esc(g[1])}</span>${g[2].map(a=>a[0]?`<p style="margin:6px 0 0"><a href="${a[0]}">${esc(a[1])} →</a><br><span class="note">${esc(a[2])}${a[3]?' · '+esc(a[3]):''}</span></p>`:`<p style="margin:6px 0 0" class="soon">${esc(a[1])}: ${esc(a[2])}</p>`).join('')}</div>`).join('');
+$('#kp').innerHTML=[['Votos válidos',fi(T1.vv),'27 UFs + Exterior'],['Lula',fp(T1.L/T1.vv*100),fi(T1.L)+' votos'],['Flávio Bolsonaro',fp(T1.F/T1.vv*100),fi(T1.F)+' votos'],['Flávio − Lula',fsi(T1.M),fs(T1.M/T1.vv*100)+' p.p. dos válidos'],['Votos dos eliminados',fi(T1.E),fp(T1.E/T1.vv*100)+' dos válidos'],['Brancos + nulos',fi(T1.vb+T1.vn),''],['Abstenção',fp(T1.abst/T1.el*100),fi(T1.abst)+' de '+fi(T1.el)+' eleitores']].map(a=>`<div class="card kpi"><div class="lab">${a[0]}</div><div class="big" style="font-size:22px">${a[1]}</div><div class="det">${a[2]}</div></div>`).join('');
+$('#knote').textContent='Margem entre os finalistas: Flávio Bolsonaro − Lula (positivo favorece Flávio). Contagem: 27 UFs + Exterior (28 unidades).';
+$('#cal').innerHTML='<thead><tr><th>Quando</th><th>O quê</th><th>Onde no site</th></tr></thead><tbody>'+[
+ ['25/10/2026','2º turno presidencial (Lula × Flávio Bolsonaro) e dos governos de '+GOVUF.map(u=>u.toUpperCase()).join(', ')+'. A apuração começa às 17h de Brasília, após o fechamento das urnas em todo o país, segundo a prática do 1º turno.','<a href="painel.html">Painel</a> · <a href="evolucao.html">Evolução</a> · <a href="mapa.html">Mapa</a> · <a href="atemporal.html">Atemporal</a>'],
+ ['Depois da apuração','Resultado × cenários com r e s observados; perfil do voto e participação entre os turnos; transferência por UF (pendente).','<a href="cenarios.html">Resultado × cenários</a> · <a href="perfil.html">Perfil do voto</a> · <a href="participacao.html">Participação</a>'],
+ ['Pendente','Votos sub judice e recontagens: o site reflete o que o TSE publicar, sem ajustes próprios.','<a href="#glossario">Glossário</a>'],
+ ['Depois do resultado final','Publicação da versão v1.0.0 no Zenodo (DOI), conforme o guia de publicação.','README']
+].map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join('')+'</tbody>';
+// qualidade dos dados: conferências internas
+const chk=[];
+let sumU=0,sumC=0;for(const u of ALLU){sumU+=U1vv(u)}D26.cands.forEach((c,i)=>{sumC+=ALLU.reduce((a,u)=>a+U1(u).v[i],0)});
+chk.push(['28 unidades (27 UFs + Exterior) no 1º turno embutido',ALLU.length===28&&Object.keys(D26.ufs).length===28]);
+chk.push(['Soma dos candidatos = votos válidos ('+fi(sumC)+')',sumC===sumU]);
+chk.push(['L + F + eliminados = votos válidos',T1.L+T1.F+T1.E===T1.vv]);
+chk.push(['Comparecimento + abstenção = eleitorado ('+fi(T1.el)+')',T1.comp+T1.abst===T1.el&&T1.el===D26.ELEIT&&T1.comp===D26.COMP]);
+chk.push(['Comparecimento = válidos + brancos + nulos',T1.vv+T1.vb+T1.vn===T1.comp]);
+chk.push(['Ponto de empate: M/(2E) = '+fd(T1.M/(2*T1.E),6),Math.abs(T1.M/(2*T1.E)-0.119407)<5e-7]);
+chk.push(['Seis UFs com governador em 2º turno nos dados do 1º turno ('+D26.runoff.map(r=>r.uf.toUpperCase()).join(', ')+')',D26.runoff.length===6&&D26.runoff.every(r=>GOVUF.includes(r.uf))]);
+$('#chk').innerHTML='<thead><tr><th>Conferência</th><th>Resultado</th></tr></thead><tbody>'+chk.map(c=>`<tr><td>${c[0]}</td><td class="${c[1]?'ok':'bad'}">${c[1]?'confere':'DIVERGE'}</td></tr>`).join('')+`</tbody><caption class="note" style="caption-side:bottom;text-align:left">Fonte do 1º turno: ${esc(D26.fonte)}. As conferências do 2º turno (soma das UFs × arquivo nacional, sub judice) aparecem no Painel quando há dados.</caption>`;
+const GL=[['Votos válidos','Para presidente e governador, os votos nominais nos candidatos; excluem brancos e nulos. Não incluem votos sub judice. É a base dos percentuais.'],['Sub judice','Votos de candidaturas com registro em discussão na Justiça Eleitoral. O TSE os informa à parte; o site os mantém fora dos válidos, sem juízo de valor.'],['Margem','Flávio Bolsonaro − Lula, em votos ou pontos percentuais dos válidos. Positivo favorece Flávio Bolsonaro.'],['Eliminados (E)','Candidatos à Presidência que não foram ao 2º turno; E é a soma dos seus votos válidos no 1º turno.'],['Ganho líquido (r)','Soma dos votos que Lula e Flávio Bolsonaro ganham do 1º para o 2º turno, dividida por E. Não é a transferência de votos dos eliminados: mistura quem mudou de voto, de comparecimento e de voto em branco ou nulo.'],['Parcela s','Fração do ganho líquido que fica com o segundo colocado do 1º turno (Lula).'],['Empate s*(r)','Valor de s que zera a diferença: 0,5 + M/(2·E·r).'],['Projeção aritmética','Votos atuais ÷ fração de seções totalizadas, UF a UF. Supõe que as seções restantes repetem as contadas; não é previsão.'],['Inferência ecológica','Estimar comportamento individual a partir de totais agregados; não identifica quem votou em quem.'],['27 UFs + Exterior','28 unidades de apuração; o Exterior (votos de brasileiros no exterior) é tratado à parte.']];
+$('#glo').innerHTML=GL.map(g=>`<dt id="gl-${g[0].toLowerCase().replace(/[^a-z]+/g,'-')}">${g[0]}</dt><dd>${g[1]}</dd>`).join('');
+</script></body></html>

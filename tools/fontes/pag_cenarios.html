@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Resultado × cenários</title><meta name="description" content="Régua aritmética do 2º turno de 2026 montada com o 1º turno: ganho dos finalistas (r), parcela de Lula (s), ponto de empate, matriz r × s e r e s observados por UF.">
+<style>/*@CSS*/</style></head><body>
+<header class="top"><div class="wrap"><div class="bar"><div class="brand">Resultado × cenários<small>Apuração 2026 · 2º turno</small></div>
+<div class="status" id="status"></div><div class="ctrl" id="ctl"></div></div></div></header>
+<main class="wrap" id="main">
+<div class="callout" style="margin-bottom:14px"><b>Hipóteses de trabalho, não previsão nem pesquisa eleitoral.</b> A régua é aritmética: usa só os números do 1º turno (TSE) e dois parâmetros livres. Nada aqui diz como as pessoas votarão; o resultado oficial é o do TSE.</div>
+<div id="codesbox"></div>
+<div class="card prose" style="margin-bottom:14px"><h2>A conta</h2>
+<p>Sejam <b>L</b> e <b>F</b> os votos de Lula e de Flávio Bolsonaro no 1º turno, <b>M = F − L</b> a diferença e <b>E</b> os votos válidos dos candidatos eliminados. No 2º turno, <b>r</b> é o <i>ganho líquido</i> dos dois finalistas dividido por E e <b>s</b> é a parcela desse ganho que fica com Lula. A diferença Flávio Bolsonaro − Lula no 2º turno fica</p>
+<p style="text-align:center"><b>M − r·E·(2s − 1)</b></p>
+<p>e é zero quando <b>s*(r) = 0,5 + M/(2·E·r)</b>. Ganho líquido não é ganho bruto, e r e s são resumos de agregados: não identificam como cada eleitor votou (limite da inferência ecológica). O r pode passar de 1 porque comparecimento, brancos e nulos também mudam. Hipótese: válidos do 2º turno = L + F + r·E.</p>
+<div class="grid kpis" id="base"></div></div>
+<div class="card" style="margin-bottom:14px"><h2>Simulador <span class="sub">mexa em r e s</span></h2>
+<div class="sliders"><label>r (ganho líquido dos finalistas ÷ votos dos eliminados): <b id="rv"></b><input type="range" id="r" min="0.2" max="1.2" step="0.01"></label>
+<label>s (parcela do ganho que fica com Lula): <b id="sv"></b><input type="range" id="s" min="0.3" max="0.7" step="0.0005"></label></div>
+<div class="chips" id="presets" style="margin-bottom:10px"></div>
+<div id="sim"></div>
+<p style="margin-top:10px"><button class="btn" id="save">Salvar este cenário</button> <input id="nome" placeholder="nome do cenário (opcional)" style="padding:5px 8px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--fg)"></p></div>
+<div class="card" style="margin-bottom:14px"><h2>Cenários salvos <span class="sub">ficam só no seu navegador</span></h2><div id="saved"></div></div>
+<div class="card" style="margin-bottom:14px"><h2>Curva de empate s*(r)</h2><div id="graf"></div>
+<p class="note">Acima da curva, Lula fica à frente; abaixo, Flávio Bolsonaro fica à frente (para a diferença nacional de votos válidos, nos termos desta conta). A linha tracejada é a referência neutra s = L/(L+F), em que o ganho se reparte como os finalistas já se repartiam no 1º turno. Clique no gráfico para mover o simulador.</p></div>
+<div class="card" style="margin-bottom:14px"><h2>Matriz r × s <span class="sub">Flávio Bolsonaro − Lula, em p.p. dos válidos</span></h2><div id="matriz"></div>
+<p class="note">Cada célula aplica a conta acima. Tom avermelhado: Lula à frente; azulado: Flávio Bolsonaro à frente. Clique numa célula para levar o simulador a ela.</p></div>
+<div class="card" style="margin-bottom:14px"><h2>Resultado observado <span class="sub">r e s do 2º turno</span></h2><div id="obs"></div></div>
+<div class="card" style="margin-bottom:14px"><h2>r e s por UF <span class="sub">observados ou projetados</span></h2><div id="ufs"></div></div>
+<div class="card prose"><h2>Cenários A, B e C e régua histórica <span class="sub">pendente</span></h2>
+<p>Os cenários A, B e C (frações dos eliminados que vão a cada finalista) e a referência histórica dos segundos turnos de 2002 a 2022 existiam no site do 1º turno até a v22 e foram retirados na v23. Esta versão não os reproduz porque os parâmetros não vieram no pacote; entram quando o autor os confirmar ou quando forem refeitos a partir de fonte citada. Nenhum valor é inventado: os atalhos do simulador acima são apenas pontos de referência aritméticos (neutro, empate e extremos), sem pretensão de previsão.</p></div>
+</main>
+<script>/*@DATA*/</script>
+<script>/*@LIB*/</script>
+<script>
+'use strict';
+const {$,$$,esc,fi,fd,fp,fs,fsi,store,U1,U1vv,IL,IF,T1,UFN,ALLU,D,pctSec,fin,projecao,startLive,codesCard,bindCodes}=AP;
+const {L:L1,F:F1,E,M,vv:V1}=T1, A=M/(2*E), neutra=L1/(L1+F1);
+const sstar=r=>0.5+A/r;
+let SV=store.get('ap26s.cen',[]),OBS=null;
+const R=store.get('ap26s.ar',72)/100, Sx=store.get('ap26s.as',null);
+$('#r').value=Math.max(.2,Math.min(1.2,R));$('#s').value=Sx==null?neutra.toFixed(4):Sx/100;
+$('#base').innerHTML=[['L (Lula, 1º turno)',fi(L1),fp(L1/V1*100)+' dos válidos'],['F (Flávio Bolsonaro, 1º turno)',fi(F1),fp(F1/V1*100)+' dos válidos'],['M = F − L',fi(M),fs(M/V1*100)+' p.p. dos válidos'],['E (eliminados)',fi(E),fp(E/V1*100)+' dos válidos'],['M/(2E)',fd(A,6),'s*(r) = 0,5 + '+fd(A,6)+'/r'],['Referência neutra L/(L+F)',fp(neutra*100,1),'']].map(a=>`<div class="card kpi"><div class="lab">${a[0]}</div><div class="big num" style="font-size:20px">${a[1]}</div><div class="det">${a[2]}</div></div>`).join('');
+const res=(r,s)=>{const g=r*E,L2=L1+g*s,F2=F1+g*(1-s),V2=L2+F2;return{g,L2,F2,V2,m:F2-L2,mp:(F2-L2)/V2*100}};
+const sv=()=>{store.set('ap26s.ar',+(+$('#r').value*100).toFixed(1));store.set('ap26s.as',+(+$('#s').value*100).toFixed(2))};
+const PRE=()=>{const rr=+$('#r').value,ss=sstar(rr);return[
+ ['Ganho neutro (s = L/(L+F))',rr,neutra],['Empate para este r',rr,Math.min(.7,ss)],['Lula ganha 55% do ganho',rr,.55],['Flávio ganha 55% do ganho',rr,.45],['r = 0,50 neutro',.5,neutra],['r = 0,90 neutro',.9,neutra]]};
+function sim(){
+  const r=+$('#r').value,s=+$('#s').value;$('#rv').textContent=fd(r,2);$('#sv').textContent=fp(s*100,2);
+  const x=res(r,s),ss=sstar(r),rs=s>.5?M/(E*(2*s-1)):null;
+  $('#sim').innerHTML=`<div class="tw"><table><tbody>
+   <tr><td>Ganho líquido dos finalistas (r·E)</td><td class="n">${fi(x.g)}</td></tr>
+   <tr><td>Lula: ${fi(L1)} + ${fi(x.g*s)}</td><td class="n">${fi(x.L2)} (${fp(x.L2/x.V2*100)})</td></tr>
+   <tr><td>Flávio Bolsonaro: ${fi(F1)} + ${fi(x.g*(1-s))}</td><td class="n">${fi(x.F2)} (${fp(x.F2/x.V2*100)})</td></tr>
+   <tr><td><b>Flávio Bolsonaro − Lula</b></td><td class="n"><b>${fsi(x.m)} (${fs(x.mp)} p.p.)</b></td></tr>
+   <tr><td>s* de empate para este r</td><td class="n">${ss>1?'inatingível (r baixo demais para empatar)':fp(ss*100,2)}</td></tr>
+   <tr><td>r* de empate para este s</td><td class="n">${rs==null?'não há (com s ≤ 50%, Flávio Bolsonaro segue à frente)':rs>1.5?fd(rs,2)+' (acima do plausível)':fd(rs,2)}</td></tr></tbody></table></div>
+   <p class="note">${x.m>0?'Com estes parâmetros, Flávio Bolsonaro fica à frente.':x.m<0?'Com estes parâmetros, Lula fica à frente.':'Empate.'} Brancos, nulos e abstenção não entram na conta.</p>`;
+  $('#presets').innerHTML=PRE().map((p,i)=>`<button class="chip" data-p="${i}" style="cursor:pointer">${esc(p[0])}</button>`).join('');
+  $$('#presets [data-p]').forEach(b=>b.onclick=()=>{const p=PRE()[+b.dataset.p];$('#r').value=p[1];$('#s').value=p[2];sim()});
+  sv();graf();saved();matriz();
+}
+function graf(){
+  const r0=+$('#r').value,s0=+$('#s').value,W=760,Hh=300,ml=46,mr=14,mt=10,mb=34,r1=.2,r2=1.2,y1=.4,y2=1;
+  const X=r=>ml+(r-r1)/(r2-r1)*(W-ml-mr),Y=s=>mt+(1-(s-y1)/(y2-y1))*(Hh-mt-mb);let g='';
+  for(let v=.4;v<=1.0001;v+=.1)g+=`<line x1="${ml}" x2="${W-mr}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--line)" stroke-width=".7"/><text x="${ml-6}" y="${Y(v)+4}" text-anchor="end" font-size="10.5" fill="var(--muted)">${fd(v*100,0)}%</text>`;
+  for(let v=.2;v<=1.2001;v+=.2)g+=`<text x="${X(v)}" y="${Hh-16}" text-anchor="middle" font-size="10.5" fill="var(--muted)">${fd(v,1)}</text>`;
+  g+=`<text x="${(ml+W-mr)/2}" y="${Hh-2}" text-anchor="middle" font-size="10.5" fill="var(--muted)">r</text>`;
+  const pts=[];for(let r=Math.max(r1,A/.5+.0001);r<=r2;r+=.005)pts.push(X(r).toFixed(1)+','+Y(Math.min(y2,sstar(r))).toFixed(1));
+  g+=`<line x1="${ml}" x2="${W-mr}" y1="${Y(neutra)}" y2="${Y(neutra)}" stroke="var(--fg2)" stroke-dasharray="5 4"/><polyline fill="none" stroke="var(--accent)" stroke-width="2.4" points="${pts.join(' ')}"/>`;
+  const dot=(r,s,c,t,ring)=>`<circle cx="${X(Math.min(r2,Math.max(r1,r)))}" cy="${Y(Math.min(y2,Math.max(y1,s)))}" r="${ring?5:6}" ${ring?`fill="var(--surface)" stroke="${c}" stroke-width="2.4"`:`fill="${c}"`}><title>${esc(t)}</title></circle>`;
+  SV.forEach(c=>g+=dot(c.r,c.s,'var(--fg2)',c.n||'cenário salvo',true));
+  g+=dot(r0,s0,'var(--c3)','simulador');
+  if(OBS)g+=dot(OBS.r,OBS.s,'var(--c4)',OBS.final?'observado':'projeção atual',!OBS.final);
+  g+=`<rect class="hit" x="${ml}" y="${mt}" width="${W-ml-mr}" height="${Hh-mt-mb}" fill="transparent" style="cursor:crosshair"/>`;
+  $('#graf').innerHTML=`<svg class="chart" viewBox="0 0 ${W} ${Hh}" role="img" aria-label="Curva de empate s*(r)">${g}</svg><div class="legend"><span><i class="sw" style="background:var(--accent)"></i>s*(r)</span><span><i class="sw" style="background:var(--c3)"></i>simulador</span><span><i class="sw" style="background:var(--c4)"></i>observado (círculo vazado: projeção enquanto a apuração não termina)</span><span><i class="sw" style="background:var(--fg2)"></i>cenários salvos</span><span>tracejado: referência neutra</span></div>`;
+  const svg=$('#graf svg');svg.querySelector('.hit').onclick=ev=>{const b=svg.getBoundingClientRect(),px=(ev.clientX-b.left)/b.width*W,py=(ev.clientY-b.top)/b.height*Hh;
+    const r=r1+(px-ml)/(W-ml-mr)*(r2-r1),s=y1+(1-(py-mt)/(Hh-mt-mb))*(y2-y1);$('#r').value=Math.max(.2,Math.min(1.2,Math.round(r*100)/100));$('#s').value=Math.max(.3,Math.min(.7,Math.round(s*2000)/2000));sim()};
+}
+function saved(){
+  if(!SV.length){$('#saved').innerHTML='<div class="empty-msg">Nenhum cenário salvo. Use "Salvar este cenário" no simulador.</div>';return}
+  $('#saved').innerHTML=`<div class="tw"><table><thead><tr><th>Nome</th><th class="n">r</th><th class="n">s</th><th class="n">Lula</th><th class="n">Flávio Bolsonaro</th><th class="n">Flávio − Lula (p.p.)</th><th></th></tr></thead><tbody>${SV.map((c,i)=>{const x=res(c.r,c.s);return`<tr><td>${esc(c.n||'Cenário '+(i+1))}</td><td class="n">${fd(c.r,2)}</td><td class="n">${fp(c.s*100,2)}</td><td class="n">${fp(x.L2/x.V2*100)}</td><td class="n">${fp(x.F2/x.V2*100)}</td><td class="n">${fs(x.mp)}</td><td><button class="btn" data-ap="${i}">Aplicar</button> <button class="btn" data-rm="${i}" aria-label="remover">×</button></td></tr>`}).join('')}</tbody></table></div>`;
+  $$('#saved [data-ap]').forEach(b=>b.onclick=()=>{const c=SV[+b.dataset.ap];$('#r').value=c.r;$('#s').value=c.s;sim()});
+  $$('#saved [data-rm]').forEach(b=>b.onclick=()=>{SV.splice(+b.dataset.rm,1);store.set('ap26s.cen',SV);sim()});
+}
+$('#save').onclick=()=>{SV.push({n:$('#nome').value.trim(),r:+$('#r').value,s:+$('#s').value});if(SV.length>12)SV.shift();store.set('ap26s.cen',SV);$('#nome').value='';sim()};
+function matriz(){
+  const rs=[.4,.5,.6,.7,.8,.9,1,1.1],ss=[.44,.46,.48,.49,.50,.51,.52,.54,.56];
+  const cell=(r,s)=>{const x=res(r,s),k=Math.min(60,Math.abs(x.mp)*6);return`<td class="n" data-r="${r}" data-s="${s}" style="cursor:pointer;background:color-mix(in srgb,${x.mp>=0?'var(--c2)':'var(--c1)'} ${Math.round(k)}%,var(--surface))">${fs(x.mp,1)}</td>`};
+  $('#matriz').innerHTML=`<div class="tw"><table><thead><tr><th>r ↓ · s (Lula) →</th>${ss.map(s=>`<th class="n">${fd(s*100,0)}%</th>`).join('')}</tr></thead><tbody>${rs.map(r=>`<tr><td><b>${fd(r,1)}</b></td>${ss.map(s=>cell(r,s)).join('')}</tr>`).join('')}</tbody></table></div>`;
+  $$('#matriz td[data-r]').forEach(t=>t.onclick=()=>{$('#r').value=t.dataset.r;$('#s').value=t.dataset.s;sim()});
+}
+function observado(){
+  const pr=projecao(true),b=D.pres.br;
+  if(!pr||!b||!b.v.vv){OBS=null;$('#obs').innerHTML='<p class="note">Aguardando dados do 2º turno. Durante a apuração, a página mostra o r e o s implícitos na projeção aritmética; ao chegar a 99,9% das seções, mostra o valor observado a partir do arquivo nacional do TSE.</p>';return}
+  const fim=b.s.p>=.999,L2=fim?(fin(b,'13')||{vap:0}).vap:pr.L,F2=fim?(fin(b,'22')||{vap:0}).vap:pr.F;
+  const dL=L2-L1,dF=F2-F1,gain=dL+dF,r=gain/E,s=gain!==0?dL/gain:NaN;
+  if(!isFinite(s)){OBS=null;$('#obs').innerHTML='<p class="note">Ganho líquido nulo ou indefinido neste instante.</p>';return}
+  OBS={r,s,final:fim};const ss=sstar(r),mp=(F2-L2)/(F2+L2)*100;
+  $('#obs').innerHTML=`<div class="tw"><table><tbody><tr><td>Lula: 2º turno − 1º turno</td><td class="n">${fsi(dL)}</td></tr><tr><td>Flávio Bolsonaro: 2º turno − 1º turno</td><td class="n">${fsi(dF)}</td></tr><tr><td>r = ganho líquido ÷ E</td><td class="n">${fd(r,3)}</td></tr><tr><td>s = parcela de Lula no ganho</td><td class="n">${fp(s*100,2)}</td></tr><tr><td>s* de empate para este r</td><td class="n">${ss>1?'inatingível':fp(ss*100,2)}</td></tr><tr><td>Flávio Bolsonaro − Lula</td><td class="n">${fsi(F2-L2)} (${fs(mp)} p.p.)</td></tr></tbody></table></div><p class="note">${fim?'Apuração praticamente concluída ('+fp(b.s.p*100,2)+' das seções): valores observados.':'<b>Projeção, não observado.</b> Com '+fp(b.s.p*100,1)+' das seções, os votos de cada UF foram extrapolados pela fração totalizada (projeção aritmética do Painel); r e s mudam à medida que as seções chegam.'} Inferência ecológica: r e s resumem agregados e não dizem como cada eleitor votou.</p>`;
+  $('#sim').insertAdjacentHTML('afterend','');
+}
+function porUF(){
+  const rows=[];
+  for(const u of ALLU){const d=D.pres[u];if(!d||!d.v.vv)continue;const p=pctSec(u);if(p<.02)continue;const k=1/p,fim=p>=.999;
+    const l=(fin(d,'13')||{vap:0}).vap*k,f=(fin(d,'22')||{vap:0}).vap*k,x=U1(u),Eu=U1vv(u)-x.v[IL]-x.v[IF],dL=l-x.v[IL],dF=f-x.v[IF],g=dL+dF;
+    rows.push({u,p,fim,r:Eu>0?g/Eu:NaN,s:g!==0?dL/g:NaN,m1:(x.v[IF]-x.v[IL])/(x.v[IF]+x.v[IL])*100,m2:(f-l)/(f+l)*100})}
+  if(!rows.length){$('#ufs').innerHTML='<div class="empty-msg">Aguardando dados.</div>';return}
+  rows.sort((a,b)=>a.u.localeCompare(b.u));
+  $('#ufs').innerHTML=`<div class="tw"><table><thead><tr><th>UF</th><th>Seções</th><th class="n">r</th><th class="n">s (Lula)</th><th class="n">Flávio − Lula, 1º turno (p.p.)</th><th class="n">Flávio − Lula, 2º turno (p.p.)</th><th>Base</th></tr></thead><tbody>${rows.map(x=>`<tr><td><b>${x.u.toUpperCase()}</b> ${esc(UFN[x.u])}</td><td class="n">${fp(x.p*100,1)}</td><td class="n">${isFinite(x.r)?fd(x.r,2):'–'}</td><td class="n">${isFinite(x.s)?fp(x.s*100,1):'–'}</td><td class="n">${fs(x.m1,1)}</td><td class="n">${fs(x.m2,1)}</td><td style="color:var(--muted)">${x.fim?'observado':'projetado'}</td></tr>`).join('')}</tbody></table></div><p class="note">Mesma conta do nacional, aplicada a cada UF com pelo menos 2% das seções (votos extrapolados pela fração totalizada). Em UFs com ganho líquido pequeno, s é instável; leia com cautela. A margem do 1º turno usa só os votos dos dois finalistas.</p>`;
+}
+['r','s'].forEach(id=>$('#'+id).oninput=sim);
+AP.S.onUpdate=()=>{observado();porUF();graf()};
+$('#codesbox').innerHTML=codesCard();bindCodes();observado();porUF();sim();startLive({pres:true,gov:false});
+</script></body></html>
